@@ -1,11 +1,11 @@
 const { Router } = require("express");
 const { default: fetch } = require("node-fetch");
-require("dotenv").config({ path: __dirname + "/.env" });
+require("dotenv").config();
 
 const router = Router();
 
-router.get("/by_city/", (req, res) => {
-  let city = req.body.city;
+router.get("/by_city/:city", (req, res) => {
+  let city = req.params.city;
   console.log(`${city}city`);
   const url = `${process.env.WEATHER_API}weather?q=${city}&appid=${process.env.WEATHER_API_KEY}`;
   console.log(url);

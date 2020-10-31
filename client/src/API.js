@@ -1,6 +1,9 @@
-const API_URL = "http://localhost:1337";
+const API_URL = "http://localhost:3000";
 
-export async function listRainfalls() {
-  const response = await fetch(`${API_URL}/api/rainfalls`);
+export async function getWeatherStatsOfCurrentCity() {
+  let current_city = "hyderabad";
+  const response = await fetch(
+    `${API_URL}/api/weather/by_city/${current_city}`
+  );
   return response.json();
 }

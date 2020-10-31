@@ -1,7 +1,7 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import ReactMapGL from "react-map-gl";
-import { listRainfalls } from "./API";
+import { getWeatherStatsOfCurrentCity } from "./API";
 const App = () => {
   const [viewport, setViewport] = useState({
     width: "100vw",
@@ -13,7 +13,7 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const rainfaills = await listRainfalls();
+      const rainfaills = await getWeatherStatsOfCurrentCity();
       console.log(rainfaills);
     })();
   }, []);

@@ -8,7 +8,7 @@ const middlewares = require("./middlewares");
 const weather = require("./api/weather");
 const location = require("./api/location");
 const app = express();
-dotenv.config({ path: __dirname + "/.env" });
+dotenv.config();
 app.use(morgan("common"));
 
 app.use(helmet());
