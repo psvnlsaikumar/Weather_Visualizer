@@ -4,6 +4,7 @@ import ReactMapGL, { Marker } from "react-map-gl";
 import {
   getWeatherStatsOfCurrentCity,
   getWeatherWithinAViewWindow,
+  getSelectedAreaWeatherData,
 } from "./API";
 const App = () => {
   const [rainFallEntries, setRainFaillEntries] = useState([]);
@@ -23,12 +24,26 @@ const App = () => {
     })();
   }, []);
 
+  const showAreaData = (event) => {
+    (async () => {
+      const [longitude, latitude] = event.lngLat;
+      const getCurrentLocationData = await getSelectedAreaWeatherData(
+        longitude,
+        latitude
+      );
+      console.log(getCurrentLocationData);
+    })();
+  };
+
   return (
-    <ReactMapGL
-      {...viewport}
-      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-      onViewportChange={(nextViewport) => setViewport(nextViewport)}
-    ></ReactMapGL>
+    <div onClick={(viewport) => console.log(viewport)}>
+      <ReactMapGL
+        {...viewport}
+        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+        onViewportChange={(nextViewport) => setViewport(nextViewport)}
+        onClick={showAreaData}
+      ></ReactMapGL>
+    </div>
   );
 };
 

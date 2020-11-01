@@ -19,8 +19,10 @@ router.get("/by_city/:city", (req, res) => {
 });
 
 router.get("/by_lat_lon/", (req, res) => {
-  let lat = req.body.lat;
-  let lon = req.body.lon;
+  let lat = req.headers.lat;
+  let lon = req.headers.lon;
+  console.log(req.headers);
+  console.log(lat + " " + lon + "asdasd");
   const url = `${process.env.WEATHER_API}weather?lat=${lat}&lon=${lon}&appid=${process.env.WEATHER_API_KEY}`;
   console.log(url);
 

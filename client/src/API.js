@@ -8,6 +8,19 @@ export async function getWeatherStatsOfCurrentCity() {
   return response.json();
 }
 
+export async function getSelectedAreaWeatherData(lat, lon) {
+  const response = await fetch(`${API_URL}/api/weather/by_lat_lon/`, {
+    method: "GET",
+    mode: "cors",
+    headers: {
+      lat: lat,
+      lon: lon,
+    },
+  });
+
+  return response.json();
+}
+
 export async function getWeatherWithinAViewWindow() {
   let lat_top = "20";
   let lat_bot = "16";
