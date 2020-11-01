@@ -1,8 +1,12 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
-import ReactMapGL from "react-map-gl";
-import { getWeatherStatsOfCurrentCity } from "./API";
+import ReactMapGL, { Marker } from "react-map-gl";
+import {
+  getWeatherStatsOfCurrentCity,
+  getWeatherWithinAViewWindow,
+} from "./API";
 const App = () => {
+  const [rainFallEntries, setRainFaillEntries] = useState([]);
   const [viewport, setViewport] = useState({
     width: "100vw",
     height: "100vh",
@@ -13,19 +17,18 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const rainfaills = await getWeatherStatsOfCurrentCity();
-      console.log(rainfaills);
+      const rainFallEntries = await getWeatherWithinAViewWindow();
+      setRainFaillEntries(rainFallEntries);
+      console.log(rainFallEntries);
     })();
   }, []);
 
   return (
-    <div>
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
-      />
-    </div>
+    <ReactMapGL
+      {...viewport}
+      mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
+      onViewportChange={(nextViewport) => setViewport(nextViewport)}
+    ></ReactMapGL>
   );
 };
 
