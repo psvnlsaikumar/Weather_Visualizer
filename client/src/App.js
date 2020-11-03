@@ -1,6 +1,9 @@
 import * as React from "react";
 import { useState, useEffect } from "react";
 import ReactMapGL, { Marker } from "react-map-gl";
+import Map from "./Map";
+import SearchableMap from "./SearchableMap";
+import { Route, Switch, BrowserRouter } from "react-router-dom";
 import {
   getWeatherStatsOfCurrentCity,
   getWeatherWithinAViewWindow,
@@ -20,7 +23,6 @@ const App = () => {
     (async () => {
       const rainFallEntries = await getWeatherWithinAViewWindow();
       setRainFaillEntries(rainFallEntries);
-      console.log(rainFallEntries);
     })();
   }, []);
 
@@ -37,12 +39,12 @@ const App = () => {
 
   return (
     <div onClick={(viewport) => console.log(viewport)}>
-      <ReactMapGL
-        {...viewport}
-        mapboxApiAccessToken={process.env.REACT_APP_MAPBOX_TOKEN}
-        onViewportChange={(nextViewport) => setViewport(nextViewport)}
-        onClick={showAreaData}
-      ></ReactMapGL>
+      <BrowserRouter>
+        <Switch>
+          <Route exact path="/" component={Map} />
+          <Route exact path="/search" component={SearchableMap} />
+        </Switch>
+      </BrowserRouter>
     </div>
   );
 };

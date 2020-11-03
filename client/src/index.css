@@ -7,3 +7,12 @@ body {
   width: 100vw;
   overflow: hidden;
 }
+
+#background-map {
+  position: absolute;
+  display: block;
+}
+
+#foreground-data {
+  position: relative;
+}
